@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.Objects;
+
 public class MenuItem {
     private String name;
     private String description;
@@ -9,14 +11,54 @@ public class MenuItem {
 
     //constructor
 
-    public MenuItem(String name, String description, Double price) {
+    public MenuItem(String name, Double price, String description, String category, boolean isNew) {
         this.name = name;
         this.description = description;
         this.price = price;
-        this.category = "none";
+        this.category = category;
         this.isNew = false;
 
     }
+
+    public MenuItem(String name, Double price, String description, String category) {
+        this(name, price, description, category, true);
+
+    }
+    public MenuItem(){
+
+    }
+
+    public boolean isItemNew() {
+        return isNew;
+    }
+    //overrides
+
+    @Override
+    public String toString() {
+        String listing = "menu item: " + this.name + "    price: " + this.price;
+        String newOrNot = "";
+        if(isNew) {
+            newOrNot = "      new!!!";
+        }
+
+        return listing.concat(newOrNot);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MenuItem menuItem = (MenuItem) o;
+        return Objects.equals(name, menuItem.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
+
+
+    //getters and setters
 
     public String getName() {
         return this.name;
